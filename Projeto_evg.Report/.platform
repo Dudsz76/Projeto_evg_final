@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Projeto_evg"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7f926e15-b4a6-4abc-b7db-f2126c62c58e"
+  }
+}

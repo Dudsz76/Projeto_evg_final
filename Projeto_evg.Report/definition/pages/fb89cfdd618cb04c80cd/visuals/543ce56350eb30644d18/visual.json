@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "543ce56350eb30644d18",
+  "position": {
+    "x": 0,
+    "y": 9.9777282850779514,
+    "z": 0,
+    "height": 300.75723830734967,
+    "width": 364.89977728285078,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Total de pessoas cursando cursos de ciência de dados"
+                }
+              },
+              "queryRef": "Medidas.Total_cursos_dados",
+              "nativeQueryRef": "Total de pessoas cursando cursos de ciência de dados"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Total de pessoas cursando cursos de ciência de dados"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

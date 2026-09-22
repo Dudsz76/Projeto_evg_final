@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "e57f6500ea1bb0b3ce95",
+  "position": {
+    "x": 915.10022271714922,
+    "y": 279.37639198218261,
+    "z": 2000,
+    "height": 300.75723830734967,
+    "width": 364.89977728285078,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "treemap",
+    "query": {
+      "queryState": {
+        "Group": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Turma"
+                    }
+                  },
+                  "Property": "tematica"
+                }
+              },
+              "queryRef": "Dim_Turma.tematica",
+              "nativeQueryRef": "tematica",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Turma"
+                        }
+                      },
+                      "Property": "cod_turma"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Dim_Turma.cod_turma)",
+              "nativeQueryRef": "Soma de cod_turma"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Dim_Turma"
+                      }
+                    },
+                    "Property": "cod_turma"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c0c39a2f4c81c000c402",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Turma"
+              }
+            },
+            "Property": "tematica"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c0087ec34955e2e8460b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Turma"
+                  }
+                },
+                "Property": "cod_turma"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

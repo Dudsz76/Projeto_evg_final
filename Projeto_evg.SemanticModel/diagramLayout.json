@@ -1,0 +1,99 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 1.5801011485521061
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 49.999999999999986,
+            "y": 215.23055976547897
+          },
+          "nodeIndex": "Dim_Curso",
+          "nodeLineageTag": "35aadf7a-d121-4a53-bce5-c8e09b60d3eb",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 626.39535437998984,
+            "y": 645.839969475644
+          },
+          "nodeIndex": "Dim_institucional",
+          "nodeLineageTag": "2ed1b02a-872f-4f18-ac7a-5edbb472bf24",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 899.89788309379242,
+            "y": 188.41898237629005
+          },
+          "nodeIndex": "Dim_pessoa",
+          "nodeLineageTag": "fbf816fe-7189-4002-bcec-209c28bffaf6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 363.76353419878717,
+            "y": 0
+          },
+          "nodeIndex": "Dim_Turma",
+          "nodeLineageTag": "422ebf19-4044-4e25-9429-24b218cab02c",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 358.91042418381767,
+            "y": 317.06841662267806
+          },
+          "nodeIndex": "Fato_matricula",
+          "nodeLineageTag": "9285bf9a-22ca-464f-840a-038c8c80e26a",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1133.8978830937924,
+            "y": 322.919984737822
+          },
+          "nodeIndex": "Medidas",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 63.287087723234038,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

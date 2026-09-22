@@ -1,0 +1,62 @@
+table Dim_institucional
+	lineageTag: 2ed1b02a-872f-4f18-ac7a-5edbb472bf24
+
+	column id_institucional
+		dataType: int64
+		formatString: 0
+		lineageTag: 16d2d6d8-2a9d-44a4-a602-c07a54dd2b3e
+		summarizeBy: none
+		sourceColumn: id_institucional
+
+		annotation SummarizationSetBy = Automatic
+
+	column instituicao
+		dataType: string
+		lineageTag: 77e8e63f-34c2-49ed-8ca2-5a425bb5d636
+		summarizeBy: none
+		sourceColumn: instituicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column conteudista
+		dataType: string
+		lineageTag: 7f4ea1d1-6080-473f-80cd-dcc3434cc4f6
+		summarizeBy: none
+		sourceColumn: conteudista
+
+		annotation SummarizationSetBy = Automatic
+
+	column esfera
+		dataType: string
+		lineageTag: 2a75af5b-debd-4502-a714-e2270c459bf9
+		summarizeBy: none
+		sourceColumn: esfera
+
+		annotation SummarizationSetBy = Automatic
+
+	column poder
+		dataType: string
+		lineageTag: bd3800bf-1891-403f-b00a-86ffad2b618a
+		summarizeBy: none
+		sourceColumn: poder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_institucional = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\55619\Desktop\Projeto_evg\data\amostra_evg.csv"),[Delimiter=",", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"dt_matricula", type datetime}, {"cod_turma", Int64.Type}, {"cod_curso", Int64.Type}, {"carga_horaria", Int64.Type}, {"dt_fim", type datetime}, {"idade", Int64.Type}, {"telefone_pessoa", type text}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"instituicao", "conteudista", "esfera", "poder"}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Outras Colunas Removidas", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Índice Adicionado",{"Índice", "instituicao", "conteudista", "esfera", "poder"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Reordenadas",{{"Índice", "id_institucional"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

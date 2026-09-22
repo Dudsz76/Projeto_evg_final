@@ -1,0 +1,71 @@
+table Dim_Turma
+	lineageTag: 422ebf19-4044-4e25-9429-24b218cab02c
+
+	column id_turma
+		dataType: int64
+		formatString: 0
+		lineageTag: 8413a65c-4765-4c23-920f-9685effda47c
+		summarizeBy: none
+		sourceColumn: id_turma
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_turma
+		dataType: int64
+		formatString: 0
+		lineageTag: 46ba46f0-97d9-4dd7-9c4b-5ba96243e6b8
+		summarizeBy: sum
+		sourceColumn: cod_turma
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_turma
+		dataType: string
+		lineageTag: 2c19094a-2ea3-4969-9ad1-7ca170a84f8d
+		summarizeBy: none
+		sourceColumn: nome_turma
+
+		annotation SummarizationSetBy = Automatic
+
+	column modalidade_turma
+		dataType: string
+		lineageTag: c390b45e-da80-483f-ad01-c599ecf3f94e
+		summarizeBy: none
+		sourceColumn: modalidade_turma
+
+		annotation SummarizationSetBy = Automatic
+
+	column sit_turma
+		dataType: string
+		lineageTag: 0e5c7029-633b-4a55-bf2e-6a651e2cd222
+		summarizeBy: none
+		sourceColumn: sit_turma
+
+		annotation SummarizationSetBy = Automatic
+
+	column tematica
+		dataType: string
+		lineageTag: 559afd40-7c51-4779-9fc5-868b42b5bee8
+		summarizeBy: none
+		sourceColumn: tematica
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Turma = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\55619\Desktop\Projeto_evg\data\amostra_evg.csv"),[Delimiter=",", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"dt_matricula", type datetime}, {"cod_turma", Int64.Type}, {"cod_curso", Int64.Type}, {"carga_horaria", Int64.Type}, {"dt_fim", type datetime}, {"idade", Int64.Type}, {"telefone_pessoa", type text}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"cod_turma", "nome_turma", "modalidade_turma", "sit_turma", "tematica"}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Outras Colunas Removidas", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Índice Adicionado",{"Índice", "cod_turma", "nome_turma", "modalidade_turma", "sit_turma", "tematica"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Reordenadas",{{"Índice", "id_turma"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

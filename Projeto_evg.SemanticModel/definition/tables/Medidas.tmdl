@@ -1,0 +1,28 @@
+table Medidas
+	lineageTag: 27147242-e73f-41e2-be3b-1038bee9e716
+
+	measure 'Total de pessoas cursando cursos de ciência de dados' = CALCULATE(COUNTROWS('Dim_Turma'),'Dim_Turma'[tematica]="Análise e Ciência de Dados")
+		formatString: 0
+		lineageTag: b46eb7cb-4d2a-40e7-8f38-73ea293be1ae
+
+	measure 'total de cursos ofertados com tema "ciência de dados"' = CALCULATE(DISTINCTCOUNT('Dim_Turma'[cod_turma]),'Dim_Turma'[tematica]="Análise e Ciência de Dados")
+		formatString: 0
+		lineageTag: e89d620b-f78f-4d13-97fd-565df740319a
+
+	column Column
+		formatString: 0
+		lineageTag: 7eeb4d21-e960-4738-9017-017ea51353e0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 006fed6d38214288b8da577d949c27e0
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

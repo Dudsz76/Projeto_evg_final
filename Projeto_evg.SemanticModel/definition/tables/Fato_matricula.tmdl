@@ -1,0 +1,97 @@
+table Fato_matricula
+	lineageTag: 9285bf9a-22ca-464f-840a-038c8c80e26a
+
+	column cod_matricula
+		dataType: string
+		lineageTag: 21f127b2-4fc1-4c03-bdd0-7474bfce0e57
+		summarizeBy: none
+		sourceColumn: cod_matricula
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_pessoa
+		dataType: int64
+		formatString: 0
+		lineageTag: dd19c369-b6a7-43bd-96cc-543c5f8c698b
+		summarizeBy: none
+		sourceColumn: id_pessoa
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_curso
+		dataType: int64
+		formatString: 0
+		lineageTag: 81c8dc38-cc5f-4509-a4ff-60e882f71d71
+		summarizeBy: none
+		sourceColumn: id_curso
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_turma
+		dataType: int64
+		formatString: 0
+		lineageTag: 9505a045-cad3-4165-a1c7-1ec6f09f6bad
+		summarizeBy: none
+		sourceColumn: id_turma
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_matricula
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a9d68060-73b1-4272-adf1-594b7816f3a9
+		summarizeBy: none
+		sourceColumn: dt_matricula
+
+		variation Variation
+			isDefault
+			relationship: 82840649-5303-4717-90db-0091ca6defdd
+			defaultHierarchy: LocalDateTable_cddc242f-33e6-4a9f-8bc9-503d584acb9a.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sit_matricula
+		dataType: string
+		lineageTag: 4a621d75-e04f-494b-8f0d-f99403e19bc0
+		summarizeBy: none
+		sourceColumn: sit_matricula
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_Institucional
+		dataType: int64
+		formatString: 0
+		lineageTag: ed625e8f-0dfa-46ac-8f66-00ed37e8d9ce
+		summarizeBy: none
+		sourceColumn: id_Institucional
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fato_matricula = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\55619\Desktop\Projeto_evg\data\amostra_evg.csv"),[Delimiter=",", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"dt_matricula", type datetime}, {"cod_turma", Int64.Type}, {"cod_curso", Int64.Type}, {"carga_horaria", Int64.Type}, {"dt_fim", type datetime}, {"idade", Int64.Type}, {"telefone_pessoa", type text}}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Tipo Alterado", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Índice Adicionado",{{"Índice", "id_turma"}}),
+				    #"Índice Adicionado1" = Table.AddIndexColumn(#"Colunas Renomeadas", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Índice Adicionado1",{{"Índice", "id_curso"}}),
+				    #"Índice Adicionado2" = Table.AddIndexColumn(#"Colunas Renomeadas1", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Índice Adicionado2",{{"Índice", "id_pessoa"}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Colunas Renomeadas2",{"cod_matricula", "dt_matricula", "id_pessoa", "id_curso", "id_turma", "sit_matricula"}),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Outras Colunas Removidas",{"cod_matricula", "id_pessoa", "id_curso", "id_turma", "dt_matricula", "sit_matricula"}),
+				    #"Índice Adicionado3" = Table.AddIndexColumn(#"Colunas Reordenadas", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Renomeadas3" = Table.RenameColumns(#"Índice Adicionado3",{{"Índice", "id_Institucional"}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Renomeadas3", {"id_pessoa"}, Dim_pessoa, {"ID_Pessoia"}, "Dim_pessoa", JoinKind.LeftOuter),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"Consultas Mescladas", {"id_curso"}, Dim_Curso, {"id_curso"}, "Dim_Curso", JoinKind.LeftOuter),
+				    #"Consultas Mescladas2" = Table.NestedJoin(#"Consultas Mescladas1", {"id_turma"}, Dim_Turma, {"id_turma"}, "Dim_Turma", JoinKind.LeftOuter),
+				    #"Consultas Mescladas3" = Table.NestedJoin(#"Consultas Mescladas2", {"id_Institucional"}, Dim_institucional, {"id_institucional"}, "Dim_institucional", JoinKind.LeftOuter)
+				in
+				    #"Consultas Mescladas3"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

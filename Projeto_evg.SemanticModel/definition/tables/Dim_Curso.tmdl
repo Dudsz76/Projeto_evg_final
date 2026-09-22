@@ -1,0 +1,70 @@
+table Dim_Curso
+	lineageTag: 35aadf7a-d121-4a53-bce5-c8e09b60d3eb
+
+	column id_curso
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ffd3dd9-0f82-4e85-9aba-9705932332ed
+		summarizeBy: none
+		sourceColumn: id_curso
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_curso
+		dataType: int64
+		formatString: 0
+		lineageTag: 102fe7a7-4142-4975-8184-a9837c2b6339
+		summarizeBy: sum
+		sourceColumn: cod_curso
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_curso
+		dataType: string
+		lineageTag: 7ead638c-c797-4cce-9221-eb672cc2980c
+		summarizeBy: none
+		sourceColumn: nome_curso
+
+		annotation SummarizationSetBy = Automatic
+
+	column carga_horaria
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ff6ceb6-1af8-442b-b610-3305d9a29465
+		summarizeBy: sum
+		sourceColumn: carga_horaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_fim
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3f8f4899-6018-4e4f-8b0d-d93b5d07bf50
+		summarizeBy: none
+		sourceColumn: dt_fim
+
+		variation Variation
+			isDefault
+			relationship: d7a68dc1-4e57-4067-912c-4a27dec24e4f
+			defaultHierarchy: LocalDateTable_c6d7f253-a8f1-40c8-85b5-3c699f3328ea.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Curso = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\55619\Desktop\Projeto_evg\data\amostra_evg.csv"),[Delimiter=",", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"dt_matricula", type datetime}, {"cod_turma", Int64.Type}, {"cod_curso", Int64.Type}, {"carga_horaria", Int64.Type}, {"dt_fim", type datetime}, {"idade", Int64.Type}, {"telefone_pessoa", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"cod_matricula", "dt_matricula", "cod_turma", "nome_turma", "modalidade_turma", "nacionalidade", "sit_turma", "instituicao", "municipio_pessoa", "uf_pessoa", "conteudista", "tematica", "codigo_pessoa", "sexo", "idade", "sit_matricula", "poder", "esfera", "email_pessoa", "telefone_pessoa", "email_conteudista"}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Colunas Removidas", "Índice", 2, 2, Int64.Type),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Índice Adicionado",{"Índice", "cod_curso", "nome_curso", "carga_horaria", "dt_fim"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Reordenadas",{{"Índice", "id_curso"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "a8a599d4308b050b95ec",
+  "position": {
+    "x": 640,
+    "y": 281,
+    "z": 3002,
+    "height": 301,
+    "width": 275,
+    "tabOrder": 3002
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Turma"
+                    }
+                  },
+                  "Property": "tematica"
+                }
+              },
+              "queryRef": "Dim_Turma.tematica",
+              "nativeQueryRef": "tematica",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "09f345826d8712e33322",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Turma"
+              }
+            },
+            "Property": "tematica"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

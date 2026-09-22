@@ -1,0 +1,27 @@
+relationship 82840649-5303-4717-90db-0091ca6defdd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fato_matricula.dt_matricula
+	toColumn: LocalDateTable_cddc242f-33e6-4a9f-8bc9-503d584acb9a.Date
+
+relationship d7a68dc1-4e57-4067-912c-4a27dec24e4f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Curso.dt_fim
+	toColumn: LocalDateTable_c6d7f253-a8f1-40c8-85b5-3c699f3328ea.Date
+
+relationship a27da5fa-1da6-4d0d-433b-868aecf6694c
+	crossFilteringBehavior: bothDirections
+	fromColumn: Dim_Curso.id_curso
+	toColumn: Fato_matricula.id_curso
+
+relationship 3d929023-4f1b-d965-fe4a-f619704e4944
+	fromColumn: Dim_Turma.id_turma
+	toColumn: Fato_matricula.id_turma
+
+relationship 01379547-756b-f3d2-3230-7791c3c6f786
+	fromColumn: Dim_pessoa.ID_Pessoia
+	toColumn: Fato_matricula.id_pessoa
+
+relationship 5c6e2f44-36bf-67a1-60c7-b82089780d88
+	fromColumn: Fato_matricula.id_Institucional
+	toColumn: Dim_institucional.id_institucional
+

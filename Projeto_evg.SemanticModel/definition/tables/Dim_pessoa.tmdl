@@ -1,0 +1,104 @@
+table Dim_pessoa
+	lineageTag: fbf816fe-7189-4002-bcec-209c28bffaf6
+
+	column id_pessoa
+		dataType: string
+		lineageTag: 373e644d-b555-4568-8dc4-f1bfdc618009
+		summarizeBy: none
+		sourceColumn: id_pessoa
+
+		annotation SummarizationSetBy = Automatic
+
+	column nacionalidade
+		dataType: string
+		lineageTag: b8b8fa89-5c42-4e51-9f12-0aa257c7fe4d
+		summarizeBy: none
+		sourceColumn: nacionalidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio_pessoa
+		dataType: string
+		lineageTag: ff8034ab-8429-47c1-b1b0-cca40e49f2c2
+		summarizeBy: none
+		sourceColumn: municipio_pessoa
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf_pessoa
+		dataType: string
+		lineageTag: c510be50-13b6-4ce5-a8f0-67b1fe6efa69
+		summarizeBy: none
+		sourceColumn: uf_pessoa
+
+		annotation SummarizationSetBy = Automatic
+
+	column conteudista
+		dataType: string
+		lineageTag: 5d73d683-2107-4973-b966-148d202ab01f
+		summarizeBy: none
+		sourceColumn: conteudista
+
+		annotation SummarizationSetBy = Automatic
+
+	column sexo
+		dataType: string
+		lineageTag: a3ac3e2c-cc9b-4ce0-ae38-acbcdad66395
+		summarizeBy: none
+		sourceColumn: sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column idade
+		dataType: int64
+		formatString: 0
+		lineageTag: 2cdb6532-d1e9-4184-95b5-b853aa105a5c
+		summarizeBy: sum
+		sourceColumn: idade
+
+		annotation SummarizationSetBy = Automatic
+
+	column email_pessoa
+		dataType: string
+		lineageTag: 0b0bf147-a82c-49a0-a5f8-d87aff39ffe5
+		summarizeBy: none
+		sourceColumn: email_pessoa
+
+		annotation SummarizationSetBy = Automatic
+
+	column telefone_pessoa
+		dataType: string
+		lineageTag: 895a49a0-b479-4d24-89ee-55697fdd09db
+		summarizeBy: none
+		sourceColumn: telefone_pessoa
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Pessoia
+		dataType: int64
+		formatString: 0
+		lineageTag: e785c365-58c4-4d45-9f7a-9359f8e7d6db
+		summarizeBy: none
+		sourceColumn: ID_Pessoia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_pessoa = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\55619\Desktop\Projeto_evg\data\amostra_evg.csv"),[Delimiter=",", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"dt_matricula", type datetime}, {"cod_turma", Int64.Type}, {"cod_curso", Int64.Type}, {"carga_horaria", Int64.Type}, {"dt_fim", type datetime}, {"idade", Int64.Type}, {"telefone_pessoa", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"cod_matricula", "dt_matricula", "cod_turma", "nome_turma", "modalidade_turma", "cod_curso", "nome_curso", "carga_horaria", "dt_fim", "sit_turma", "instituicao", "tematica", "sit_matricula", "poder", "esfera", "email_conteudista"}),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Colunas Removidas",{"codigo_pessoa", "nacionalidade", "municipio_pessoa", "uf_pessoa", "conteudista", "sexo", "idade", "email_pessoa", "telefone_pessoa"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Reordenadas",{{"codigo_pessoa", "id_pessoa"}}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Colunas Renomeadas", "Índice", 1, 1, Int64.Type),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Índice Adicionado",{{"Índice", "ID_Pessoia"}})
+				in
+				    #"Colunas Renomeadas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

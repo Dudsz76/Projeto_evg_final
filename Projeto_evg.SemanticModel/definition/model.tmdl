@@ -1,0 +1,26 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Fato_matricula","Dim_Turma","Dim_Curso","Dim_pessoa","Dim_institucional"]
+
+ref table Fato_matricula
+ref table DateTableTemplate_ed3a13d5-843d-4c50-9bbe-a2d918a813c3
+ref table LocalDateTable_cddc242f-33e6-4a9f-8bc9-503d584acb9a
+ref table Dim_Turma
+ref table Dim_Curso
+ref table LocalDateTable_c6d7f253-a8f1-40c8-85b5-3c699f3328ea
+ref table Dim_pessoa
+ref table Dim_institucional
+ref table Medidas
+
+ref cultureInfo pt-BR
+
