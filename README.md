@@ -77,8 +77,7 @@ A análise tem como tema central Cursos de Ciência de Dados, e busca responder 
 
 Espaço reservado para o print do dashboard final.
 
-![](./fotos/Captura de tela 2026-09-22 174854.png)
-![Texto alternativo da imagem](./caminho/para/imagem.png)
+![Texto alternativo da imagem](./fotos/Captura.png)
 
 ## Modelo Lógico (DrawDB)
 ![Texto alternativo da imagem](./fotos/diagrama_evg.png)
@@ -88,22 +87,28 @@ Espaço reservado para o print do dashboard final.
 ### Total de Pessoas Cursando Cursos de Ciência de Dados
 
 ```dax
-[Inserir aqui o código DAX da medida]
+[Total de pessoas cursando cursos de ciência de dados =
+CALCULATE(COUNTROWS('Dim_Turma'),
+'Dim_Turma'[tematica]="Análise e Ciência de Dados")
 ```
 
 ### Total de Cursos Ofertados com o Tema Ciência de Dados
 
 ```dax
-[Inserir aqui o código DAX da medida]
+[total de cursos ofertados com tema "ciência de dados" = CALCULATE(DISTINCTCOUNT('
+Dim_Turma'[cod_turma]),'Dim_Turma'[tematica]
+="Análise e Ciência de Dados")]
 ```
 
 ## Estrutura do Repositório
 
 ```text
+fotos/
+   └── [fotos utilizadas no readme]
 data/
-   └── [arquivo do dataset – ignorado pelo Git]
-projeto/
-   └── [arquivo .pbi do Power BI]
+ └── [dados_brutos]
+projeto_evg.pbip
+desktop.ini
 README.md
 .gitignore
 ```
@@ -116,6 +121,7 @@ README.md
 
 ## Autor
 
-[Seu Nome]
-[Seu LinkedIn]
-[Seu GitHub]
+Eduardo Alves de Oliveira
+
+
+[Meu Linkedin(https://www.linkedin.com/in/eduardo-alves-dados)]
