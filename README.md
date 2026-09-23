@@ -77,13 +77,11 @@ A análise tem como tema central Cursos de Ciência de Dados, e busca responder 
 
 Espaço reservado para o print do dashboard final.
 
-`https://inserir_caminho_ou_link_da_imagem_do_dashboard/`
+![](./fotos/Captura de tela 2026-09-22 174854.png)
+![Texto alternativo da imagem](./caminho/para/imagem.png)
 
 ## Modelo Lógico (DrawDB)
-
-Espaço reservado para o print do modelo desenhado no DrawDB.
-
-`https://inserir_caminho_ou_link_da_imagem_do_drawdb/`
+![Texto alternativo da imagem](./fotos/diagrama_evg.png)
 
 ## Medidas Criadas
 
